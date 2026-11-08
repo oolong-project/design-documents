@@ -1,0 +1,1 @@
+- 2026-11-08 21:06 UTC: OOL-1: oolong refusal tests written as "if helm ... >/tmp/fixed-path; then fail" count a failed write as a pass on a shared host; re-run such scripts with a private TMPDIR before trusting a green npm test.
