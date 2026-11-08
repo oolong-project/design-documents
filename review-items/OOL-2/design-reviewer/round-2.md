@@ -9,7 +9,7 @@ is unchanged (checked by diff against round 1); it is not reopened here.
 
 Verdict: PASSED. All three round-1 items are settled; nothing is OPEN and no new item.
 
-## F-1 RESOLVED (p2, security): no test made ssh itself refuse an unknown host
+## F-1: No test made ssh itself refuse an unknown host (RESOLVED, security, ARCHITECTURE section 4.2 case 13)
 
 New 4.2 case 13 calls `sync_worktree` directly in a subshell (so neither the `ssh-keygen -F`
 pre-check nor `install_ssh_files`, which `locked_sync_and_publish` runs first, can mask or
@@ -23,7 +23,7 @@ holds: `sync_worktree` (lines 222-268) runs `git clone`/`git fetch` with the exp
 `GIT_SSH_COMMAND` and lets their stderr through, so the message assertion can be met. Case 3 is
 relabelled the start-up aid, and threat model S2 maps case 13 as the control.
 
-## F-2 RESOLVED (p2, security): 4.2 case 4 relied on a default identity in `$HOME/.ssh`
+## F-2: 4.2 case 4 relied on a default identity in `$HOME/.ssh` (RESOLVED, security, ARCHITECTURE section 4.2 case 4)
 
 Case 4 no longer plants a key under `$HOME/.ssh` and says why (3.0: ssh resolves `~` from the
 passwd home, prototyped). It now asserts, from the `LogLevel VERBOSE` sshd log, at least one
@@ -34,7 +34,7 @@ exactly one `identityfile` and `identityagent none`. Both halves can fail for th
 3.0 notes that in the pod `HOME` and the D4 passwd home are both `/tmp/git-home`. Threat model S5
 is updated to match.
 
-## F-3 RESOLVED (p3, functional): ssh state variables outside the `OOLONG_GIT_` prefix
+## F-3: ssh state variables outside the `OOLONG_GIT_` prefix (RESOLVED, functional, ARCHITECTURE section 3.4)
 
 3.4 renames them `OOLONG_GIT_SSH_AUTH_DIR`, `OOLONG_GIT_SSH_DIR` and `OOLONG_GIT_SSH_KNOWN_HOST`,
 so the existing reserved prefix already refuses them in `gitPod.env` (new 4.1 case 13 vector).
