@@ -1,0 +1,19 @@
+{
+  "kind": "BOARD_TEST_REPORT",
+  "round": 2,
+  "verdict": "PASSED",
+  "counts": { "passed": 164, "failed": 0, "skipped": 5 },
+  "tested": [
+    { "pr": "https://github.com/oolong-project/oolong/pull/4", "head": "ae0fbf560988b2bd56860a776978493c0f834393" }
+  ],
+  "about": { "specification": "DETAILED_DESIGN" },
+  "reviewItems": [
+    {
+      "id": "T-1",
+      "priority": 2,
+      "status": "RESOLVED",
+      "title": "chart-render.integration.sh fails on a clean host: the missing-image case no longer holds, and fixed /tmp outputs hide it",
+      "location": { "path": "helm-chart/oolong/scripts/chart-render.integration.sh", "line": 20 }
+    }
+  ]
+}
