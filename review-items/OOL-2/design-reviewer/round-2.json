@@ -1,0 +1,17 @@
+{
+  "kind": "BOARD_REVIEW_ITEMS",
+  "round": 2,
+  "verdict": "PASSED",
+  "about": { "specification": "ARCHITECTURE" },
+  "reviewItems": [
+    { "id": "F-1", "priority": 2, "status": "RESOLVED",
+      "title": "No test makes ssh itself refuse an unknown host, so StrictHostKeyChecking=yes versus accept-new is checked only as a string",
+      "location": { "path": "design/OOL-2/architecture-2.md", "line": 679 } },
+    { "id": "F-2", "priority": 2, "status": "RESOLVED",
+      "title": "4.2 case 4 puts the default identity in $HOME/.ssh, which ssh never reads, so that half of the assertion cannot fail",
+      "location": { "path": "design/OOL-2/architecture-2.md", "line": 633 } },
+    { "id": "F-3", "priority": 3, "status": "RESOLVED",
+      "title": "OOLONG_SSH_* state variables sit outside the reserved OOLONG_GIT_ prefix and install_ssh_files keys on their emptiness, not on the type",
+      "location": { "path": "design/OOL-2/architecture-2.md", "line": 348 } }
+  ]
+}
