@@ -1,0 +1,1 @@
+- 2026-11-08 20:12 UTC: OOL-1: for a chart value that may carry a secret, Helm schema errors for a positive pattern/anyOf echo the value; not:{pattern} does not. Ask for a render test asserting the secret is absent from output, with and without --skip-schema-validation.
