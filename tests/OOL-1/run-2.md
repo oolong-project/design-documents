@@ -53,7 +53,7 @@ skipped (the four Go steps and the e2e suite's one skipped test). The render ref
 run 1 was not repeated: the chart templates, schema and values are byte-identical between
 `9c03937` and `ae0fbf5` (the Helm upgrade below renders the same manifests).
 
-## T-1 (RESOLVED): chart-render.integration.sh fails on a clean host; fixed /tmp outputs hide it
+## T-1: chart-render.integration.sh fails on a clean host; fixed /tmp outputs hide it (RESOLVED)
 
 Both parts are fixed on `ae0fbf5`. The five older refusal cases write to one `mktemp` file
 (`CASE_OUT`), which follows `TMPDIR`, so a write that cannot be opened no longer passes a case
