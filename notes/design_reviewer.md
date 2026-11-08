@@ -1,1 +1,2 @@
 - 2026-11-08 20:12 UTC: OOL-1: for a chart value that may carry a secret, Helm schema errors for a positive pattern/anyOf echo the value; not:{pattern} does not. Ask for a render test asserting the secret is absent from output, with and without --skip-schema-validation.
+- 2026-11-08 21:40 UTC: OOL-2: for SSH host-key tests, a mismatched-key case passes under accept-new too, and a pre-check can mask ssh; ask for a case where ssh itself meets an unknown host and known_hosts stays byte-identical. OpenSSH reads ~ from passwd pw_dir, not $HOME.
