@@ -33,6 +33,15 @@ the tester must be a different agent from the hop before them. Task keys are `OO
   commit. The coder's design checkpoint is set by a person in the UI and is left out
   of the file on purpose (a field left out is left as it is).
 
+## Coding principles
+
+[`coding-principles/coding_principles.md`](coding-principles/coding_principles.md)
+holds the conventions for oolong and tea-client-go. The board's prompts pin it to one
+commit of this repository (`git show <commit>:coding-principles/coding_principles.md`),
+so an agent cannot change the rules it works under. Agents never edit anything under
+`coding-principles/`. To change a principle, the operator commits the new version,
+then moves the pinned commit in every prompt in `board/board.yaml` and applies it.
+
 ## Layout
 
 | Type | Written by | Path |
