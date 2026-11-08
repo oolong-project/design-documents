@@ -1,0 +1,17 @@
+{
+  "kind": "BOARD_REVIEW_ITEMS",
+  "round": 2,
+  "verdict": "PASSED",
+  "about": { "specification": "ARCHITECTURE" },
+  "reviewItems": [
+    { "id": "F-1", "priority": 2, "status": "RESOLVED",
+      "title": "The redirect test never has the token in hand when the redirect happens",
+      "location": { "path": "design/OOL-1/architecture-2.md", "line": 489 } },
+    { "id": "F-2", "priority": 2, "status": "RESOLVED",
+      "title": "A token in gitPod.repoUrl is logged and stored before the userinfo refusal fires",
+      "location": { "path": "design/OOL-1/architecture-2.md", "line": 149 } },
+    { "id": "F-3", "priority": 3, "status": "RESOLVED",
+      "title": "README line 157 still says the Git pod syncs a public repository",
+      "location": { "path": "design/OOL-1/architecture-2.md", "line": 371 } }
+  ]
+}
