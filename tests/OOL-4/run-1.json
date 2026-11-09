@@ -1,0 +1,22 @@
+{
+  "kind": "BOARD_TEST_REPORT",
+  "round": 1,
+  "verdict": "REJECTED",
+  "counts": { "passed": 79, "failed": 4, "skipped": 0 },
+  "tested": [{ "pr": "https://github.com/oolong-project/tea-client-go/pull/1", "head": "4d16b0c7fa04196bd3cca07bd01c0b622e96b420" }],
+  "about": { "specification": "DETAILED_DESIGN" },
+  "reviewItems": [
+    { "id": "T-1", "priority": 1, "status": "OPEN",
+      "title": "Test 11a does not assert that a non-2xx body over ErrorBodyBytes is cut (unbounded error bodies still pass)",
+      "location": { "path": "transport_test.go", "line": 282 } },
+    { "id": "T-2", "priority": 2, "status": "OPEN",
+      "title": "Decode errors repeat response-body content (json/time error text), against design 3.6",
+      "location": { "path": "api.go", "line": 104 } },
+    { "id": "T-3", "priority": 2, "status": "OPEN",
+      "title": "tei.SyntaxError.Input holds the whole input despite its doc and design 3.3; its test check is hollow",
+      "location": { "path": "tei/tei.go", "line": 120 } },
+    { "id": "T-4", "priority": 3, "status": "OPEN",
+      "title": "ParseAPIBase version refusal (departure 4) has no test",
+      "location": { "path": "base.go", "line": 215 } }
+  ]
+}
