@@ -34,6 +34,26 @@ Node 24 for the harness-started server.
 | T-3 | RESOLVED | `SyntaxError.Input` is truncated at construction on every path (`syntaxErr`, legacy-form refusal, unsupported legacy type, `PURL()`). The hollow check is replaced (`len(Input) <= 64` and a prefix of the input) and new `TestSyntaxErrorInputTruncated` covers each path with about 1500-byte inputs. Mutations, each failing at least one test: `syntaxErr` stores the input whole; `truncate` a no-op; `PURL()` whole; legacy-form whole; legacy-type whole. |
 | T-4 | RESOLVED | New `base_test.go` `TestParseAPIBaseVersion`: refuses `2.0.0`, `1.0`, `v1.0.0`, `""`, `1.0.0-rc.1`, `1.0.1`, `01.0.0`, `1.0.0+` with `ErrInvalidArgument` and a zero base; accepts `1.0.0`, `1.0.0+b`, `1.0.0+build.5` with the version kept verbatim. Mutations: the supported-version check removed fails it (`2.0.0`, `1.0.0-rc.1`, `1.0.1`); both checks removed fails it for every refused value. Removing only the `validVersion` call in `ParseAPIBase` survives, but that is an equivalent mutant: `supportedVersion` calls `validVersion` itself, so only the message wording changes. |
 
+### T-1: RESOLVED, test 11a now holds the ErrorBodyBytes cut
+
+Mutation `body.limit = 1 << 40` (transport.go:168): `TestJSONByteLimit` fails with
+`TEA:true, Code:"OBJECT_UNKNOWN"`, want a non-TEA 404 (body cut).
+
+### T-2: RESOLVED, decode errors carry no body content
+
+Mutation (reason from `err.Error()`): `TestDecodeErrorCarriesNoBody` fails; the `time` case shows
+`parsing time "SECRET-BODY-CONTENT-7f3a" ...` in the error.
+
+### T-3: RESOLVED, tei.SyntaxError.Input is at most 64 bytes
+
+Mutations on `syntaxErr`, `truncate`, `PURL()`, the legacy form and the legacy type each fail
+`TestParseRefused` or `TestSyntaxErrorInputTruncated` (e.g. "Input is 1525 bytes, want 64").
+
+### T-4: RESOLVED, ParseAPIBase's version refusal is tested
+
+Mutation removing the supported-version check: `TestParseAPIBaseVersion` fails for `2.0.0`,
+`1.0.0-rc.1`, `1.0.1`. Removing only the separate `validVersion` call is an equivalent mutant.
+
 The coder disputed nothing; no item needs a design change.
 
 ## Results
