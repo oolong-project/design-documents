@@ -5,13 +5,13 @@ Task: OOL-5, built from the design carried from OOL-3: `design/OOL-3/architectur
 These questions are about the ARCHITECTURE round 2 release `28dce0e1-36f5-4840-b2cd-09b798a457ec`.
 
 The discovery part is built and tested on https://github.com/oolong-project/tea-client-go/pull/2
-(head `16ee9fa`, base `2026-11-oolong` at `1c85712`). Q1 is a conflict between the design and the
-pinned specification that the coder cannot settle alone; Q2 to Q4 are readings the coder made where
+(head `16ee9fa`, base `2026-11-oolong` at `1c85712`). Q-1 is a conflict between the design and the
+pinned specification that the coder cannot settle alone; Q-2 to Q-4 are readings the coder made where
 the design is silent or terse, asked now so that one design round settles all of them. For each,
 the PR already implements the reading stated under "Built", so an answer of "confirmed" needs no
 code change.
 
-## Q1: oolong's framework 404 is a TEA error response by the spec's definition; design case 4.2-3 expects a failed attempt
+## Q-1: oolong's framework 404 is a TEA error response by the spec's definition; design case 4.2-3 expects a failed attempt
 
 Design 3.0 ("Oolong server") says unmounted paths return the Nest body
 `{"message":...,"error":"Not Found","statusCode":404}` and calls it "not a TEA error"; 4.2 case 3
@@ -38,7 +38,7 @@ over, as case 24 tests.
 Asked: confirm the spec's rule and amend 3.0 and 4.2 case 3 to match (or say which other rule
 applies and why the spec allows it).
 
-## Q2: does a successful well-known fetch count against the attempt bound?
+## Q-2: does a successful well-known fetch count against the attempt bound?
 
 3.6 step 6 says the bound is "4 attempts in total across both stages"; 3.4 says the default 4
 attempts of `AttemptTimeout` plus backoff bound a whole `Discover` at "about 62 s" (4 x 15 s plus
@@ -54,7 +54,7 @@ one attempt; the option's doc comment says so.
 
 Asked: confirm, or say that only failed attempts (or only `/discovery` requests) count.
 
-## Q3: when every candidate has failed and attempts remain, are the candidates tried again?
+## Q-3: when every candidate has failed and attempts remain, are the candidates tried again?
 
 3.6 step 4 says "for each candidate in order", step 6 bounds the attempts, and case 26c says "with
 one endpoint only and attempts exhausted, `errors.Is(err, ErrTooManyResults)` holds", which reads
@@ -65,7 +65,7 @@ Built: the candidates are tried round-robin until the bound is used up (one endp
 
 Asked: confirm, or say that discovery ends with `*DiscoveryError` once each candidate was tried once.
 
-## Q4: statuses and answers step 5 does not name
+## Q-4: statuses and answers step 5 does not name
 
 Built, each a reading of "unusable" in step 5:
 
