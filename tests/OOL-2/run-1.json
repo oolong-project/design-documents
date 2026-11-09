@@ -1,0 +1,11 @@
+{
+  "kind": "BOARD_TEST_REPORT",
+  "round": 1,
+  "verdict": "PASSED",
+  "counts": { "passed": 271, "failed": 0, "skipped": 5 },
+  "tested": [
+    { "pr": "https://github.com/oolong-project/oolong/pull/5", "head": "ac4d97bf1ab9be9da7fff6e8a2cecaab3790f7cc" }
+  ],
+  "about": { "specification": "DETAILED_DESIGN" },
+  "reviewItems": []
+}
