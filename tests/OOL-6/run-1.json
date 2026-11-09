@@ -1,0 +1,25 @@
+{
+  "kind": "BOARD_TEST_REPORT",
+  "round": 1,
+  "verdict": "REJECTED",
+  "counts": { "passed": 132, "failed": 5, "skipped": 3 },
+  "tested": [{ "pr": "https://github.com/oolong-project/tea-client-go/pull/3", "head": "55a19b24dccce3231af1922aff69c5ae9338fc22" }],
+  "about": { "specification": "DETAILED_DESIGN" },
+  "reviewItems": [
+    { "id": "T-1", "priority": 1, "status": "OPEN",
+      "title": "VerifyChecksums with MaxBytes = math.MaxInt64 verifies forged bytes (MaxBytes+1 overflows, nothing is hashed)",
+      "location": { "path": "checksum.go", "line": 198 } },
+    { "id": "T-2", "priority": 2, "status": "OPEN",
+      "title": "DownloadArtifact panics with MaxBytes or Limits.DownloadBytes = math.MaxInt64 (boundedBody.Read overflow)",
+      "location": { "path": "transport.go", "line": 336 } },
+    { "id": "T-3", "priority": 2, "status": "OPEN",
+      "title": "Anonymous mark tested only on the first hop and not for the 401 recovery; two mutants survive",
+      "location": { "path": "transport.go", "line": 417 } },
+    { "id": "T-4", "priority": 3, "status": "OPEN",
+      "title": "The temp file's directory in DownloadArtifactToFile is not asserted; CreateTemp in the default dir survives",
+      "location": { "path": "download.go", "line": 131 } },
+    { "id": "T-5", "priority": 3, "status": "OPEN",
+      "title": "The retry with a token that is not cached (expires_in within the leeway) is untested; dropping the token override survives",
+      "location": { "path": "transport.go", "line": 180 } }
+  ]
+}
