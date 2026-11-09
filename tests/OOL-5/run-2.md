@@ -69,24 +69,24 @@ In a git worktree of the scratch merge, one mutation at a time, reset with `git 
 between them; `go test -count=1 .` each time. The same mutants were also run against the round-1
 merge (`50265c3` on the base) to show which the old tests let through.
 
-| Item | Mutation | Round 1 tests | Round 2 tests (failing) |
-|---|---|---|---|
-| T-1 | with a single candidate, an `ErrTooManyResults` answer ends discovery at once (the endpoint is not asked again) | survived | killed (`TestDiscoverResultsCap`, `TestDiscoverPURLValidation/too_many_results`) |
-| T-1 | any `ErrTooManyResults` answer ends discovery at once | killed | killed (`TestDiscoverResultsCap`, `TestDiscoverPURLValidation/too_many_results`) |
-| T-1 | candidates not tried again after the last one | not re-run | killed (`TestDiscoverAttemptBound`, `TestDiscoverResultsCap`, all four `TestDiscoverPURLValidation` sub-cases) |
-| T-2 | `DiscoveryError.Unwrap` leaves out `ErrResponseTooLarge` causes | killed by the well-known subtests only | killed, now also by `TestDiscoverByteLimits/discovery_Content-Length` and `/discovery_chunked` |
-| T-2 | `DiscoveryError.Unwrap` returns nothing | not re-run | killed (ten tests, including both discovery byte-limit subtests) |
-| T-3 | the bound check at the start of the `/discovery` stage removed (round 1's surviving mutant) | survived | killed (`TestDiscoverAttemptBound`) |
-| T-4 | well-known `400` and `403` made failed attempts, `401` kept (round 1's surviving mutant) | survived | killed (`TestDiscoverNoFailover/400_at_the_well-known_stage`, `/403_at_the_well-known_stage`) |
-| T-4 | well-known `400` only made a failed attempt | survived | killed (`/400_at_the_well-known_stage`) |
-| T-4 | well-known `403` only made a failed attempt | survived | killed (`/403_at_the_well-known_stage`) |
-| T-5 | `DiscoverPURL` answers checked with no results cap (round 1's surviving mutant) | survived | killed (`TestDiscoverPURLValidation/too_many_results`) |
-| T-5 | `DiscoverPURL` answers' roots not checked against the URL policy | survived | killed (`/http_root_not_under_an_allowance`, `/https_root_then_a_refused_root`) |
-| T-5 | `DiscoverPURL` answers not required to be a JSON array | survived | killed (`/not_an_array`) |
-| T-6 | `Unwrap` returns only the last attempt's error (round 1's surviving mutant) | survived | killed (`TestDiscoveryErrorUnwrapsEveryAttempt`) |
-| T-6 | `Unwrap` returns only the first attempt's error | survived | killed (`TestDiscoveryErrorUnwrapsEveryAttempt`) |
-| T-7 | the well-known TEA 404 reason quotes the code and the raw code again | n/a (round 1 behaviour) | killed (`TestWellKnownValidation/TEA-shaped_404`, `TestDiscoveryErrorsCarryNoBody/well-known_TEA_404_code`) |
-| T-8 | stops wrapped with the operation again (`fmt.Errorf("%s: %w", op, e)`) | n/a (round 1 behaviour) | killed (all six stop sub-cases of `TestDiscoverNoFailover`, both stages) |
+| # | Mutation | Item | Round 1 tests | Round 2 tests (failing) |
+|---|---|---|---|---|
+| 1 | with a single candidate, an `ErrTooManyResults` answer ends discovery at once (the endpoint is not asked again) | for T-1 | survived | killed (`TestDiscoverResultsCap`, `TestDiscoverPURLValidation/too_many_results`) |
+| 2 | any `ErrTooManyResults` answer ends discovery at once | for T-1 | killed | killed (`TestDiscoverResultsCap`, `TestDiscoverPURLValidation/too_many_results`) |
+| 3 | candidates not tried again after the last one | for T-1 | not re-run | killed (`TestDiscoverAttemptBound`, `TestDiscoverResultsCap`, all four `TestDiscoverPURLValidation` sub-cases) |
+| 4 | `DiscoveryError.Unwrap` leaves out `ErrResponseTooLarge` causes | for T-2 | killed by the well-known subtests only | killed, now also by `TestDiscoverByteLimits/discovery_Content-Length` and `/discovery_chunked` |
+| 5 | `DiscoveryError.Unwrap` returns nothing | for T-2 | not re-run | killed (ten tests, including both discovery byte-limit subtests) |
+| 6 | the bound check at the start of the `/discovery` stage removed (round 1's surviving mutant) | for T-3 | survived | killed (`TestDiscoverAttemptBound`) |
+| 7 | well-known `400` and `403` made failed attempts, `401` kept (round 1's surviving mutant) | for T-4 | survived | killed (`TestDiscoverNoFailover/400_at_the_well-known_stage`, `/403_at_the_well-known_stage`) |
+| 8 | well-known `400` only made a failed attempt | for T-4 | survived | killed (`/400_at_the_well-known_stage`) |
+| 9 | well-known `403` only made a failed attempt | for T-4 | survived | killed (`/403_at_the_well-known_stage`) |
+| 10 | `DiscoverPURL` answers checked with no results cap (round 1's surviving mutant) | for T-5 | survived | killed (`TestDiscoverPURLValidation/too_many_results`) |
+| 11 | `DiscoverPURL` answers' roots not checked against the URL policy | for T-5 | survived | killed (`/http_root_not_under_an_allowance`, `/https_root_then_a_refused_root`) |
+| 12 | `DiscoverPURL` answers not required to be a JSON array | for T-5 | survived | killed (`/not_an_array`) |
+| 13 | `Unwrap` returns only the last attempt's error (round 1's surviving mutant) | for T-6 | survived | killed (`TestDiscoveryErrorUnwrapsEveryAttempt`) |
+| 14 | `Unwrap` returns only the first attempt's error | for T-6 | survived | killed (`TestDiscoveryErrorUnwrapsEveryAttempt`) |
+| 15 | the well-known TEA 404 reason quotes the code and the raw code again | for T-7 | n/a (round 1 behaviour) | killed (`TestWellKnownValidation/TEA-shaped_404`, `TestDiscoveryErrorsCarryNoBody/well-known_TEA_404_code`) |
+| 16 | stops wrapped with the operation again (`fmt.Errorf("%s: %w", op, e)`) | for T-8 | n/a (round 1 behaviour) | killed (all six stop sub-cases of `TestDiscoverNoFailover`, both stages) |
 
 The 16 killed mutants counted are the rows above, run against round 2; the round-1 runs are
 evidence for the items and are not counted.
