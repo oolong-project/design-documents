@@ -1,0 +1,16 @@
+{
+  "kind": "BOARD_QUESTIONS",
+  "round": 1,
+  "verdict": "REJECTED",
+  "about": { "specification": "ARCHITECTURE", "release": "28dce0e1-36f5-4840-b2cd-09b798a457ec" },
+  "reviewItems": [
+    { "id": "Q1", "priority": 1, "status": "OPEN",
+      "title": "oolong's Nest 404 body has a string error, so the spec (discovery/readme.md Unresolved identifiers) makes it a TEA error and NotResolved; design 3.0 and 4.2 case 3 expect a failed attempt. Confirm the spec's rule and amend 3.0 and case 3?" },
+    { "id": "Q2", "priority": 2, "status": "OPEN",
+      "title": "Does the successful well-known fetch count against the discovery attempt bound (3.4's 62 s says yes; case 26's 'exactly 3 requests' can read either way)? Built: every GET counts." },
+    { "id": "Q3", "priority": 2, "status": "OPEN",
+      "title": "When every candidate has failed and attempts remain, are candidates tried again (case 26c 'one endpoint only and attempts exhausted')? Built: round-robin until the bound." },
+    { "id": "Q4", "priority": 3, "status": "OPEN",
+      "title": "Readings for answers step 5 does not name: other statuses fail over, a TEA 404 at well-known fails over, one refused rootUrl refuses the whole answer, SelectServer does not fall back past a refused first server. Confirm?" }
+  ]
+}
