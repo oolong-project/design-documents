@@ -1,0 +1,100 @@
+{
+  "kind": "BOARD_REVIEW_ITEMS",
+  "round": 1,
+  "verdict": "REJECTED",
+  "about": {
+    "specification": "ARCHITECTURE"
+  },
+  "reviewItems": [
+    {
+      "id": "F-1",
+      "priority": 2,
+      "status": "OPEN",
+      "title": "Basic credentials for /token can follow a redirect off the root",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 479
+      }
+    },
+    {
+      "id": "F-2",
+      "priority": 2,
+      "status": "OPEN",
+      "title": "No time bound on a stalled server, and discovery's attempt timeout is undefined",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 336
+      }
+    },
+    {
+      "id": "F-3",
+      "priority": 2,
+      "status": "OPEN",
+      "title": "The exact http allowance does not cover what --usehttp does today, and \"under a base\" is undefined",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 591
+      }
+    },
+    {
+      "id": "F-4",
+      "priority": 2,
+      "status": "OPEN",
+      "title": "The split's test assignment does not match the sections each child builds",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 854
+      }
+    },
+    {
+      "id": "F-5",
+      "priority": 3,
+      "status": "OPEN",
+      "title": "Validation and limits the generated layer cannot see are not specified",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 194
+      }
+    },
+    {
+      "id": "F-6",
+      "priority": 3,
+      "status": "OPEN",
+      "title": "Candidates walks every discovery result with no cap",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 567
+      }
+    },
+    {
+      "id": "F-7",
+      "priority": 3,
+      "status": "OPEN",
+      "title": "The live test asserts on data, not structure",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 834
+      }
+    },
+    {
+      "id": "F-8",
+      "priority": 3,
+      "status": "OPEN",
+      "title": "Licensing of the copied spec files and of anything taken from rearm-client-go is not stated",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 148
+      }
+    },
+    {
+      "id": "F-9",
+      "priority": 3,
+      "status": "OPEN",
+      "title": "Module dependencies and versioning are not stated accurately",
+      "location": {
+        "path": "design/OOL-3/architecture-1.md",
+        "line": 169
+      }
+    }
+  ]
+}
