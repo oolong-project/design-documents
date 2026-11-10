@@ -30,9 +30,9 @@ the tester must be a different agent from the hop before them. Task keys are `OO
   (`kind: BOARD`). Change the board by editing it and applying it:
   `rearm agent board apply --file board/board.yaml --dry-run`, then without
   `--dry-run`, from a checkout of this repository so the apply records the file's
-  commit. The file sets the design checkpoint on the coder (`coordinatorCheckpoint:
-  true`), which only a person may set, so the file is applied by a person (the UI or
-  a personal login), not by an agent key.
+  commit. The file keeps the design checkpoint on the coder (`coordinatorCheckpoint:
+  true`). Only a person moves or clears the checkpoint; an apply that leaves it as it
+  is goes through with any key that may write the board.
 
 ## Coding principles
 

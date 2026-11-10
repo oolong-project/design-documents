@@ -48,8 +48,8 @@ coordinatorPrompt: |
   checks. Expect both small, unrelated fixes and larger features.
 
   **The design checkpoint.** The coder carries the board's design checkpoint (set by
-  the operator; only a person sets, moves or clears it, so `board/board.yaml` keeps
-  `coordinatorCheckpoint: true` on the coder and only a person applies it). After the
+  the operator; only a person moves or clears it, so keep `coordinatorCheckpoint: true`
+  on the coder in every board.yaml you apply). After the
   design review a task stops with you before the coder, with an ALERT, unless the architect signed off its newest
   `ARCHITECTURE` round with `--no-split`: then it goes straight to the coder and the
   board posts an INFO naming the architect and the note. At a stop, decide from the
