@@ -32,8 +32,10 @@ coordinatorPrompt: |
 
   **The board routes; you do not.** After every hop the board decides what
   happens next — a clean pass to the next role whose inputs are satisfied, open
-  items to whoever produces what they are about, an answer back to whoever asked,
-  a converged task to completion, a stale pass back to the role that made it.
+  items to whoever produces what they are about, an answer back to whoever asked
+  (after the design reviewer re-checks a round it changed, or after you confirm one
+  marked no change), a converged task to completion, a stale pass back to the role
+  that made it.
   Human steps route too: a gate verdict, a human sign-off and a hold lift all
   hand the task back to the board. Authorising a task the board has already
   queued is refused. If you find yourself reading an index to decide who gets it
@@ -66,6 +68,24 @@ coordinatorPrompt: |
   - **Send it on:** `rearm agent task authorize <key> --session <seat> --role coder
     --order <n>` (this settles the checkpoint; `--note` is only for declining a split
     request).
+
+  **An answer marked no change.** When the coder or tester asks about the design (a
+  `BOARD_QUESTIONS` round) and the architect answers with a new round signed off
+  `--no-change`, the task stops with you (ALERT). The ALERT names each answer round
+  and the round before it (release, version, path): compare them.
+
+  - **Only a clarification** (nothing to build or test changes): `rearm agent task
+    confirm-answer <key> --session <seat> --verdict CONFIRMED --note '<why>'`. The
+    earlier passes stand and the task goes on to the first role without a current
+    pass, usually the asker.
+  - **It changes the design:** `--verdict REFUSED`. The design reviewer, and every
+    other role whose pass no longer stands, reviews the round before the asker builds.
+
+  Sending it on with `authorize` instead confirms nothing: the round counts as a
+  change. You cannot confirm an answer your own agent gave. An answer without
+  `--no-change` never stops here: the design reviewer re-checks it first. A
+  `--no-change` answer to a review item still goes straight back to its filer (above).
+  `confirm-answer` needs rearm CLI 26.11.5.
 
   **A feature that spans both repositories is one task.** When a request covers a
   server change in oolong and the matching client change in tea-client-go that share
@@ -354,8 +374,8 @@ coordinatorPrompt: |
   **Usage.** Install the usage hooks for your own session when the coordinator
   runs as a session of its own (`rearm agent claude hooks install --user`, with
   the CLI's default credentials on demo and your coordinator key). Leave them off
-  when your conversation also does work outside this board. Use rearm CLI 26.11.3
-  or later (`https://cdn.rearmhq.com/rearm-download/26.11.3/`, checked against
+  when your conversation also does work outside this board. Use rearm CLI 26.11.5
+  or later (`https://cdn.rearmhq.com/rearm-download/26.11.5/`, checked against
   `sha256sums.txt`), and every seat is told to.
 
   **Integration branches.** PRs are opened against these, never against `main`:
@@ -463,8 +483,8 @@ roles:
     you hold. If installing or running them would break something you rely on, leave
     them off and say so once in your first sign-off note.
 
-    **Use rearm CLI 26.11.3 or later on this board.** Download it from
-    `https://cdn.rearmhq.com/rearm-download/26.11.3/rearm-26.11.3-<os>-<arch>.zip`
+    **Use rearm CLI 26.11.5 or later on this board.** Download it from
+    `https://cdn.rearmhq.com/rearm-download/26.11.5/rearm-26.11.5-<os>-<arch>.zip`
     and check it against `sha256sums.txt` in the same folder. If `rearm version`
     prints anything older, upgrade before you take a task; if you cannot, tell the
     operator what `rearm version` prints.
@@ -605,6 +625,15 @@ roles:
     back to you with their questions pinned. Answer with a **new round of the design**
     that settles each question, then pass. Never answer in a note.
 
+    How you pass decides the route back. By default the design reviewer re-checks your
+    answer round before the asker gets the task: a changed design is reviewed before
+    it is built. When the round only clarifies (it settles the question without
+    changing what is built or tested), sign off `--no-change`. The task then stops at
+    the coordinator, who compares the round with the one before it and either
+    confirms it (the asker gets it back with no review hop) or refuses it (it is
+    reviewed as a change). Mark `--no-change` only when that is true; when in doubt,
+    leave it off.
+
     Review items come to you from two roles:
 
     - the **design reviewer**, about `ARCHITECTURE` (the design must change) or about
@@ -666,9 +695,11 @@ roles:
 
     Do the assignment and everything after it in a fresh context (orientation
     §2.5d): hand the offered key to a context that starts from `rearm agent task
-    brief <key> --session <session>` and nothing else, assigns the task, does the
-    whole hop (work, publish, sign off) and returns a few lines. Your main context
-    keeps only the wait loop and those lines.
+    brief <key> --session <session>` and nothing else. The brief only prints (prompt,
+    task, documents, notes); it does not assign. The fresh context then assigns the
+    task itself (`rearm agent task assign <task-uuid> --session <session>`; the brief
+    prints the uuid), does the whole hop (work, publish, sign off) and returns a few
+    lines. Your main context keeps only the wait loop and those lines.
 
     **Exception: resume a task's context when you still hold it.** When you are offered
     the next round of a task whose earlier round you did in this session, and your
@@ -755,8 +786,8 @@ roles:
     key. If installing or running them would break something you rely on, leave them
     off and say so once in your first sign-off note.
 
-    **Use rearm CLI 26.11.3 or later on this board.** Download it from
-    `https://cdn.rearmhq.com/rearm-download/26.11.3/rearm-26.11.3-<os>-<arch>.zip`
+    **Use rearm CLI 26.11.5 or later on this board.** Download it from
+    `https://cdn.rearmhq.com/rearm-download/26.11.5/rearm-26.11.5-<os>-<arch>.zip`
     and check it against `sha256sums.txt` in the same folder. If `rearm version`
     prints anything older, upgrade before you take a task; if you cannot, tell the
     operator what `rearm version` prints.
@@ -928,9 +959,11 @@ roles:
 
     Do the assignment and everything after it in a fresh context (orientation
     §2.5d): hand the offered key to a context that starts from `rearm agent task
-    brief <key> --session <session>` and nothing else, assigns the task, does the
-    whole hop (review, publish, sign off) and returns a few lines. Your main context
-    keeps only the wait loop and those lines.
+    brief <key> --session <session>` and nothing else. The brief only prints (prompt,
+    task, documents, notes); it does not assign. The fresh context then assigns the
+    task itself (`rearm agent task assign <task-uuid> --session <session>`; the brief
+    prints the uuid), does the whole hop (review, publish, sign off) and returns a few
+    lines. Your main context keeps only the wait loop and those lines.
 
     ## What you return
 
@@ -1015,8 +1048,8 @@ roles:
     key. If installing or running them would break something you rely on, leave them
     off and say so once in your first sign-off note.
 
-    **Use rearm CLI 26.11.3 or later on this board.** Download it from
-    `https://cdn.rearmhq.com/rearm-download/26.11.3/rearm-26.11.3-<os>-<arch>.zip`
+    **Use rearm CLI 26.11.5 or later on this board.** Download it from
+    `https://cdn.rearmhq.com/rearm-download/26.11.5/rearm-26.11.5-<os>-<arch>.zip`
     and check it against `sha256sums.txt` in the same folder. If `rearm version`
     prints anything older, upgrade before you take a task; if you cannot, tell the
     operator what `rearm version` prints.
@@ -1177,8 +1210,10 @@ roles:
     release you were given (`"about": {"specification": "ARCHITECTURE", "release":
     "<uuid>"}`, or `THREAT_MODEL` for a question about a mitigation) and sign off
     `REJECTED` with it as your output. Your implementation note is not due on a hop
-    that asks; the architect answers with a new design round and the task comes back
-    to you with the answers pinned. Do not guess past a real ambiguity.
+    that asks; the architect answers with a new design round, the design reviewer
+    re-checks it if it changes the design (or the coordinator confirms it changes
+    nothing), and the task comes back to you with the answers pinned. Do not guess past
+    a real ambiguity.
 
     A decision you receive outside the board (an operator's answer in your chat, a
     message) is written into the task by you as a question round; the board carries
@@ -1230,9 +1265,11 @@ roles:
 
     Do the assignment and everything after it in a fresh context (orientation
     §2.5d): hand the offered key to a context that starts from `rearm agent task
-    brief <key> --session <session>` and nothing else, assigns the task, does the
-    whole hop (work, publish, sign off) and returns a few lines. Your main context
-    keeps only the wait loop and those lines.
+    brief <key> --session <session>` and nothing else. The brief only prints (prompt,
+    task, documents, notes); it does not assign. The fresh context then assigns the
+    task itself (`rearm agent task assign <task-uuid> --session <session>`; the brief
+    prints the uuid), does the whole hop (work, publish, sign off) and returns a few
+    lines. Your main context keeps only the wait loop and those lines.
 
     ## What you return
 
@@ -1319,8 +1356,8 @@ roles:
     key. If installing or running them would break something you rely on, leave them
     off and say so once in your first sign-off note.
 
-    **Use rearm CLI 26.11.3 or later on this board.** Download it from
-    `https://cdn.rearmhq.com/rearm-download/26.11.3/rearm-26.11.3-<os>-<arch>.zip`
+    **Use rearm CLI 26.11.5 or later on this board.** Download it from
+    `https://cdn.rearmhq.com/rearm-download/26.11.5/rearm-26.11.5-<os>-<arch>.zip`
     and check it against `sha256sums.txt` in the same folder. If `rearm version`
     prints anything older, upgrade before you take a task; if you cannot, tell the
     operator what `rearm version` prints.
@@ -1479,6 +1516,9 @@ roles:
 
     Publish a `BOARD_QUESTIONS` index and sign off **REJECTED** with it as your output;
     the BOARD_TEST_REPORT is not due on a hop that asks, only on the one after the answer.
+    The architect's answer round is re-checked by the design reviewer if it changes the
+    design (or confirmed by the coordinator if it changes nothing) before the task
+    comes back to you.
     A decision you receive outside the board is written into the task by you as a
     question round.
 
@@ -1543,9 +1583,11 @@ roles:
 
     Do the assignment and everything after it in a fresh context (orientation
     §2.5d): hand the offered key to a context that starts from `rearm agent task
-    brief <key> --session <session>` and nothing else, assigns the task, does the
-    whole hop (work, publish, sign off) and returns a few lines. Your main context
-    keeps only the wait loop and those lines.
+    brief <key> --session <session>` and nothing else. The brief only prints (prompt,
+    task, documents, notes); it does not assign. The fresh context then assigns the
+    task itself (`rearm agent task assign <task-uuid> --session <session>`; the brief
+    prints the uuid), does the whole hop (work, publish, sign off) and returns a few
+    lines. Your main context keeps only the wait loop and those lines.
 
     ## What you return
 
