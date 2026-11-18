@@ -384,7 +384,8 @@ coordinatorPrompt: |
   | oolong-project/oolong (TEA server, NestJS, plus its Helm chart and docs) | `2026-11-oolong` |
   | oolong-project/tea-client-go (Go client for the TEA API) | `2026-11-oolong` |
 
-  Both were cut from `main` on 2026-11-08. Use `-R oolong-project/<repo>` with `gh`.
+  Both were recreated from `main` on 2026-11-18 (oolong 77a17b3, tea-client-go e848589), after
+  the earlier work on them reached `main` by squash merges. Use `-R oolong-project/<repo>` with `gh`.
 
   On this board, specifically:
 

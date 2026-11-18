@@ -24,8 +24,9 @@ The coordinator (the board's singleton seat) takes intake, splits and orders tas
 and merges PRs (`PR_MERGE`) into the integration branches. The design reviewer and
 the tester must be a different agent from the hop before them. Task keys are `OOL-n`.
 
-- **Code:** integration branch `2026-11-oolong` in oolong and tea-client-go (cut from
-  `main` on 2026-11-08). Integration branch to `main` is the operator's call.
+- **Code:** integration branch `2026-11-oolong` in oolong and tea-client-go (recreated from
+  `main` on 2026-11-18: oolong 77a17b3, tea-client-go e848589). Integration branch to `main` is the
+  operator's call.
 - **Configuration:** [`board/board.yaml`](board/board.yaml), a board file
   (`kind: BOARD`). Change the board by editing it and applying it:
   `rearm agent board apply --file board/board.yaml --dry-run`, then without
