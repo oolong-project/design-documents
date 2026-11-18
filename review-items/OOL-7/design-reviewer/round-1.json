@@ -1,0 +1,23 @@
+{
+  "kind": "BOARD_REVIEW_ITEMS",
+  "round": 1,
+  "verdict": "REJECTED",
+  "about": { "specification": "ARCHITECTURE" },
+  "reviewItems": [
+    { "id": "F-1", "priority": 1, "status": "OPEN",
+      "title": "A key-file failure at startup exits silently (Nest abortOnError, logger false), and E11 cannot pass as written",
+      "location": { "path": "design/OOL-7/architecture-1.md", "line": 188 } },
+    { "id": "F-2", "priority": 2, "status": "OPEN",
+      "title": "The image HEALTHCHECK (docker/tea-ready.js, GET /v1.0.0/products) is permanently unhealthy under AUTH_MODE=required",
+      "location": { "path": "design/OOL-7/architecture-1.md", "line": 568 } },
+    { "id": "F-3", "priority": 2, "status": "OPEN",
+      "title": "Artifacts served by 302 to publisher URLs are not protected by required; threat model A1 and the docs must say so",
+      "location": { "path": "design/OOL-7/threat_model-1.md", "line": 13 } },
+    { "id": "F-4", "priority": 3, "status": "OPEN",
+      "title": "Token refusals for a known key id are logged once per request, unbounded by unauthenticated clients",
+      "location": { "path": "design/OOL-7/architecture-1.md", "line": 412 } },
+    { "id": "F-5", "priority": 3, "status": "OPEN",
+      "title": "The key file is read into memory whole before its 64 KiB limit is checked",
+      "location": { "path": "design/OOL-7/architecture-1.md", "line": 192 } }
+  ]
+}
